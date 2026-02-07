@@ -1,0 +1,175 @@
+{/* Chat Input Area */}
+                                <form onSubmit={handleSendChatMessage} style={{
+                                    padding: '16px 20px',
+                                    borderTop: '1px solid #e0e0e0',
+                                    background: 'white',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '12px'
+                                }}>
+                                    {/* Attachment Preview */}
+                                    {chatAttachment && (
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px',
+                                            padding: '8px 12px',
+                                            background: '#f0f0f0',
+                                            borderRadius: '8px',
+                                            fontSize: '14px'
+                                        }}>
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#667eea" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                            </svg>
+                                            <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                {chatAttachment.name}
+                                            </span>
+                                            <button
+                                                type="button"
+                                                onClick={() => setChatAttachment(null)}
+                                                style={{
+                                                    background: 'none',
+                                                    border: 'none',
+                                                    cursor: 'pointer',
+                                                    padding: '4px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    color: '#999'
+                                                }}
+                                            >
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {/* Input Row */}
+                                    <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-end' }}>
+                                        {/* Hidden File Input */}
+                                        <input
+                                            type="file"
+                                            id="chat-file-input"
+                                            accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv"
+                                            onChange={(e) => {
+                                                if (e.target.files && e.target.files[0]) {
+                                                    setChatAttachment(e.target.files[0]);
+                                                }
+                                            }}
+                                            style={{ display: 'none' }}
+                                        />
+
+                                        {/* Attachment Button */}
+                                        <button
+                                            type="button"
+                                            onClick={() => document.getElementById('chat-file-input').click()}
+                                            style={{
+                                                width: '48px',
+                                                height: '48px',
+                                                borderRadius: '50%',
+                                                border: '2px solid #e0e0e0',
+                                                background: 'white',
+                                                color: '#667eea',
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                transition: 'all 0.3s ease',
+                                                flexShrink: 0
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.borderColor = '#667eea';
+                                                e.currentTarget.style.background = '#f5f7fa';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.borderColor = '#e0e0e0';
+                                                e.currentTarget.style.background = 'white';
+                                            }}
+                                        >
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                            </svg>
+                                        </button>
+
+                                        {/* Text Input */}
+                                        <textarea
+                                            value={chatInput}
+                                            onChange={(e) => setChatInput(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter' && !e.shiftKey) {
+                                                    e.preventDefault();
+                                                    handleSendChatMessage(e);
+                                                }
+                                            }}
+                                            placeholder="Type a message..."
+                                            style={{
+                                                flex: 1,
+                                                padding: '12px 16px',
+                                                border: '2px solid #e0e0e0',
+                                                borderRadius: '24px',
+                                                fontSize: '15px',
+                                                fontFamily: 'inherit',
+                                                resize: 'none',
+                                                minHeight: '48px',
+                                                maxHeight: '120px',
+                                                outline: 'none',
+                                                transition: 'border-color 0.3s ease'
+                                            }}
+                                            onFocus={(e) => e.target.style.borderColor = '#667eea'}
+                                            onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
+                                            rows={1}
+                                        />
+
+                                        {/* Send Button */}
+                                        <button
+                                            type="submit"
+                                            disabled={(!chatInput.trim() && !chatAttachment) || sendingChat}
+                                            style={{
+                                                width: '48px',
+                                                height: '48px',
+                                                borderRadius: '50%',
+                                                border: 'none',
+                                                background: (chatInput.trim() || chatAttachment) && !sendingChat
+                                                    ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                                                    : '#e0e0e0',
+                                                color: 'white',
+                                                cursor: (chatInput.trim() || chatAttachment) && !sendingChat ? 'pointer' : 'not-allowed',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                transition: 'all 0.3s ease',
+                                                flexShrink: 0,
+                                                boxShadow: (chatInput.trim() || chatAttachment) && !sendingChat
+                                                    ? '0 4px 12px rgba(102, 126, 234, 0.3)'
+                                                    : 'none'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                if ((chatInput.trim() || chatAttachment) && !sendingChat) {
+                                                    e.target.style.transform = 'scale(1.05)';
+                                                }
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.target.style.transform = 'scale(1)';
+                                            }}
+                                        >
+                                            {sendingChat ? (
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
+                                                    <line x1="12" y1="2" x2="12" y2="6"></line>
+                                                    <line x1="12" y1="18" x2="12" y2="22"></line>
+                                                    <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                                                    <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                                                    <line x1="2" y1="12" x2="6" y2="12"></line>
+                                                    <line x1="18" y1="12" x2="22" y2="12"></line>
+                                                    <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                                                    <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+                                                </svg>
+                                            ) : (
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                                </svg>
+                                            )}
+                                        </button>
+                                    </div>
+                                </form>

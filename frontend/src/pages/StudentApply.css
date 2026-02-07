@@ -1,0 +1,284 @@
+.apply-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.apply-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.apply-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.alert {
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.apply-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.apply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.form-select,
+.form-textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.form-hint {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+}
+
+.char-count {
+  font-size: 0.85rem;
+  color: #999;
+  margin-top: 5px;
+}
+
+.internship-details {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 5px;
+  /* left border removed per minimalist design */
+}
+
+.internship-details h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row .label {
+  font-weight: 600;
+  color: #666;
+  min-width: 120px;
+}
+
+.detail-row .value {
+  color: #333;
+  text-align: right;
+  flex: 1;
+}
+
+.skills-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.skill-badge {
+  display: inline-block;
+  background-color: #e7f3ff;
+  color: #0066cc;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  border: 1px solid #b3d9ff;
+}
+
+.info-display .info-box {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #e9ecef;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.info-item:not(:last-child) {
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+
+.info-item .label {
+  font-weight: 600;
+  color: #666;
+}
+
+.info-item .value {
+  color: #333;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.submit-btn,
+.cancel-btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.submit-btn {
+  background-color: #28a745;
+  color: white;
+  flex: 1;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+.apply-loading {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .apply-container {
+    padding: 20px 15px;
+  }
+
+  .apply-header h1 {
+    font-size: 2rem;
+  }
+
+  .apply-content {
+    padding: 20px;
+  }
+
+  .detail-row {
+    flex-direction: column;
+  }
+
+  .detail-row .label {
+    margin-bottom: 5px;
+  }
+
+  .detail-row .value {
+    text-align: left;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .submit-btn,
+  .cancel-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .apply-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .apply-content {
+    padding: 15px;
+  }
+
+  .form-select,
+  .form-textarea {
+    font-size: 16px;
+  }
+}

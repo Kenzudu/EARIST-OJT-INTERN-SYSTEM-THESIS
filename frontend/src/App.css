@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  background-color: #f8f9fb;
+  font-family: 'Roboto Condensed', "Poppins", sans-serif;
+}
+
+.app-layout {
+  padding: 0;
+  margin: 0; /* optional if you want to remove margins too */
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box; /* ensures padding/margin doesn't affect width/height */
+}
+
+.with-sidebar,
+.no-sidebar {
+  flex: 1;
+}
+
+.with-sidebar {
+  margin-left: 230px; /* account for fixed sidebar width */
+  padding: 24px 28px;
+}
+
+.no-sidebar {
+  width: 100%;
+  padding: 24px 28px;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

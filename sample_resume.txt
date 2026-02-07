@@ -1,0 +1,115 @@
+===========================================
+           SAMPLE RESUME / BIODATA
+===========================================
+
+PERSONAL INFORMATION
+--------------------
+Full Name:          John Michael Santos
+Email:              john.santos@email.com
+Phone:              +63 912 345 6789
+Address:            123 Main Street, Quezon City, Metro Manila
+Date of Birth:      January 15, 2002
+Nationality:        Filipino
+LinkedIn:           linkedin.com/in/johnmichaelsantos
+GitHub:             github.com/johnsantos
+
+OBJECTIVE
+---------
+Motivated Computer Science student seeking an internship opportunity to apply 
+theoretical knowledge in a real-world environment. Eager to contribute to 
+innovative projects while gaining hands-on experience in software development 
+and web technologies.
+
+EDUCATION
+---------
+Bachelor of Science in Computer Science
+University of the Philippines - Diliman
+Expected Graduation: May 2025
+GPA: 3.75/4.0
+
+Relevant Coursework:
+- Data Structures and Algorithms
+- Database Management Systems
+- Web Development
+- Software Engineering
+- Object-Oriented Programming
+
+TECHNICAL SKILLS
+---------------
+Programming Languages:
+- Python (Proficient)
+- JavaScript (Proficient)
+- Java (Intermediate)
+- C++ (Intermediate)
+- SQL (Intermediate)
+
+Web Technologies:
+- HTML5, CSS3
+- React.js
+- Node.js
+- Django
+- RESTful APIs
+
+Tools & Technologies:
+- Git/GitHub
+- VS Code
+- MySQL, PostgreSQL
+- Docker (Basic)
+- Linux/Unix
+
+SOFTWARE PROJECTS
+------------------
+1. E-Commerce Platform (React + Django)
+   - Developed full-stack e-commerce application
+   - Implemented user authentication and payment integration
+   - Technologies: React, Django REST Framework, PostgreSQL
+   - GitHub: github.com/johnsantos/ecommerce-platform
+
+2. Student Management System
+   - Created web-based system for managing student records
+   - Features: CRUD operations, search functionality, data export
+   - Technologies: Python, Django, MySQL, Bootstrap
+
+3. Weather Dashboard App
+   - Built responsive weather application using API integration
+   - Real-time weather updates and forecast display
+   - Technologies: JavaScript, HTML, CSS, OpenWeatherMap API
+
+INTERNSHIP EXPERIENCE
+--------------------
+Software Development Intern
+Tech Solutions Inc., Makati City
+June 2024 - August 2024
+
+- Assisted in developing and maintaining web applications
+- Participated in code reviews and team meetings
+- Fixed bugs and implemented new features
+- Collaborated with senior developers on project tasks
+
+ACHIEVEMENTS & AWARDS
+---------------------
+- Dean's List (3 semesters)
+- Best Project Award - University Hackathon 2024
+- Google Developer Student Club - Active Member
+- Completed "Python for Everybody" Specialization (Coursera)
+
+CERTIFICATIONS
+--------------
+- AWS Certified Cloud Practitioner (2024)
+- Google IT Support Professional Certificate (2023)
+- Responsive Web Design - freeCodeCamp (2023)
+
+LANGUAGES
+---------
+- English (Fluent)
+- Filipino/Tagalog (Native)
+- Spanish (Basic)
+
+REFERENCES
+----------
+Available upon request
+
+===========================================
+This is a sample resume for testing purposes.
+===========================================
+

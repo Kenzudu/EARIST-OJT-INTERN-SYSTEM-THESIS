@@ -1,0 +1,31 @@
+===========================================
+        SAMPLE SHORT BIODATA
+===========================================
+
+NAME: Maria Cristina Reyes
+EMAIL: maria.reyes@email.com
+PHONE: +63 987 654 3210
+ADDRESS: 456 Oak Avenue, Makati City
+
+EDUCATION:
+BS Information Technology
+De La Salle University
+2021 - Present
+GPA: 3.8/4.0
+
+SKILLS:
+- Python, JavaScript, Java
+- React, Node.js, Express
+- MySQL, MongoDB
+- Git, Docker
+
+PROJECTS:
+- Online Library System (Django + React)
+- Task Management App (MERN Stack)
+- Portfolio Website (HTML/CSS/JS)
+
+INTERESTS:
+Web Development, Mobile Apps, Data Science
+
+===========================================
+

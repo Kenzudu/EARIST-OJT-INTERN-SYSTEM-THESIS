@@ -1,0 +1,24 @@
+const handleOpenChat = (conversation) => {
+    // Set the chat user from the conversation
+    const otherUser = { 
+        id: conversation.contactId, 
+        name: conversation.contactName 
+    };
+    
+    setChatUser(otherUser);
+    
+    // Use the messages from the conversation object
+    const conversationMessages = conversation.messages.sort((a, b) => 
+        new Date(a.created_at) - new Date(b.created_at)
+    );
+    
+    setChatMessages(conversationMessages);
+    setShowChatModal(true);
+    
+    // Mark unread messages as read
+    conversationMessages.forEach(m => {
+        if (m.type === 'received' && !m.is_read) {
+            markAsRead(m.id);
+        }
+    });
+};

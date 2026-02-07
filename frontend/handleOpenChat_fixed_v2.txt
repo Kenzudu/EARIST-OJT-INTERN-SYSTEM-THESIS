@@ -1,0 +1,30 @@
+    const handleOpenChat = (conversation) => {
+        console.log('handleOpenChat called with:', conversation);
+        
+        // Set the chat user from the conversation
+        const otherUser = { 
+            id: conversation.contactId, 
+            name: conversation.contactName 
+        };
+        
+        console.log('Setting chatUser to:', otherUser);
+        setChatUser(otherUser);
+        
+        // Create a copy of messages array and sort it
+        const conversationMessages = [...conversation.messages].sort((a, b) => 
+            new Date(a.created_at) - new Date(b.created_at)
+        );
+        
+        console.log('Setting chatMessages to:', conversationMessages);
+        setChatMessages(conversationMessages);
+        
+        console.log('Opening chat modal');
+        setShowChatModal(true);
+        
+        // Mark unread messages as read
+        conversationMessages.forEach(m => {
+            if (m.type === 'received' && !m.is_read) {
+                markAsRead(m.id);
+            }
+        });
+    };

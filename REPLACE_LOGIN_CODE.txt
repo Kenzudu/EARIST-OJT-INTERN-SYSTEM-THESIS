@@ -1,0 +1,20 @@
+// REPLACE THIS SECTION IN LoginPage.js (lines 76-146)
+// Find the section that starts with "// Check if 2FA method choice is required"
+// and replace it with this:
+
+      // Check if 2FA method choice is required (first time admin login)
+      if (res.data.requires_2fa_choice) {
+        // Store credentials for setup page
+        localStorage.setItem("temp_user", JSON.stringify({
+          username,
+          role: 'admin'
+        }));
+        localStorage.setItem("temp_password", password);
+        localStorage.setItem("temp_email", res.data.email || '');
+        
+        setSuccess("Redirecting to 2FA setup...");
+        setTimeout(() => {
+          navigate("/2fa-setup");
+        }, 1000);
+        return;
+      }

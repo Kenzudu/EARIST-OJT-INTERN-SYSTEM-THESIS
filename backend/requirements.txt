@@ -1,0 +1,10 @@
+google-generativeai==0.8.5
+reportlab>=4.0.0
+matplotlib>=3.7.0
+python-docx>=0.8.11
+# 2FA Authentication
+pyotp>=2.9.0
+qrcode>=7.4.2
+Pillow>=10.0.0
+cryptography>=41.0.0
+# Add other project dependencies here (Django, djangorestframework, etc.)

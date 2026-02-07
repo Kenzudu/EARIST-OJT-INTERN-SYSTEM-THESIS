@@ -1,0 +1,315 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './AdminDashboard.css';
+
+function CoordinatorDocuments() {
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [documentType, setDocumentType] = useState('endorsement_letter');
+    const [students, setStudents] = useState([]);
+    const [companies, setCompanies] = useState([]);
+    const [selectedStudent, setSelectedStudent] = useState('');
+    const [selectedCompany, setSelectedCompany] = useState('');
+
+    const baseURL = 'http://localhost:8000/api/';
+
+    useEffect(() => {
+        checkCoordinatorAccess();
+        fetchStudents();
+        fetchCompanies();
+    }, []);
+
+    const checkCoordinatorAccess = () => {
+        const userRole = localStorage.getItem('userRole');
+        if (userRole !== 'coordinator' && userRole !== 'admin') {
+            setError('Access denied. Coordinators only.');
+            setTimeout(() => navigate('/student/dashboard'), 1000);
+        }
+    };
+
+    const fetchStudents = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`${baseURL}users/`, {
+                headers: { Authorization: `Token ${token}` }
+            });
+            // Filter only students
+            const studentUsers = response.data.filter(user => !user.is_staff);
+            setStudents(studentUsers);
+        } catch (err) {
+            console.error('Error fetching students:', err);
+        }
+    };
+
+    const fetchCompanies = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`${baseURL}companies/`, {
+                headers: { Authorization: `Token ${token}` }
+            });
+            setCompanies(response.data);
+        } catch (err) {
+            console.error('Error fetching companies:', err);
+        }
+    };
+
+    const handleGenerateDocument = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+        setSuccess('');
+
+        try {
+            const token = localStorage.getItem('token');
+            const requestData = { type: documentType };
+
+            if (documentType === 'endorsement_letter') {
+                if (!selectedStudent || !selectedCompany) {
+                    setError('Please select both student and company');
+                    setLoading(false);
+                    return;
+                }
+                requestData.student_id = selectedStudent;
+                requestData.company_id = selectedCompany;
+            } else if (documentType === 'acceptance_letter') {
+                if (!selectedCompany) {
+                    setError('Please select a company');
+                    setLoading(false);
+                    return;
+                }
+                requestData.company_id = selectedCompany;
+            }
+
+            const response = await axios.post(
+                `${baseURL}coordinator/documents/generate/`,
+                requestData,
+                {
+                    headers: { Authorization: `Token ${token}` },
+                    responseType: 'blob' // Important for PDF download
+                }
+            );
+
+            // Create download link
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${documentType}_${Date.now()}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            setSuccess('Document generated successfully!');
+        } catch (err) {
+            console.error('Error generating document:', err);
+            setError(err.response?.data?.error || 'Failed to generate document');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="admin-dashboard-container">
+            <div className="admin-dashboard-main">
+                <h1>📄 Generate Documents</h1>
+                <p className="subtitle">Create endorsement letters, acceptance letters, and reports</p>
+
+                {error && <div className="error-banner">{error}</div>}
+                {success && <div className="success-banner">{success}</div>}
+
+                <div className="form-container" style={{ maxWidth: '800px', margin: '30px auto' }}>
+                    <form onSubmit={handleGenerateDocument}>
+                        <div className="form-group">
+                            <label htmlFor="documentType">Document Type</label>
+                            <select
+                                id="documentType"
+                                value={documentType}
+                                onChange={(e) => setDocumentType(e.target.value)}
+                                    <label htmlFor="student">Select Student</label>
+                                    <select
+                                        id="student"
+                                        value={selectedStudent}
+                                        onChange={(e) => setSelectedStudent(e.target.value)}
+                                        required
+                                    >
+                                        <option value="">-- Select Student --</option>
+                                        {students.map(student => (
+                                            <option key={student.id} value={student.id}>
+                                                {student.first_name} {student.last_name} ({student.email})
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="company">Select Company</label>
+                                    <select
+                                        id="company"
+                                        value={selectedCompany}
+                                        onChange={(e) => setSelectedCompany(e.target.value)}
+                                        required
+                                    >
+                                        <option value="">-- Select Company --</option>
+                                        {companies.map(company => (
+                                            <option key={company.id} value={company.id}>
+                                                {company.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </>
+                        )}
+
+                        {documentType === 'acceptance_letter' && (
+                            <div className="form-group">
+                                <label htmlFor="company">Select Company</label>
+                                <select
+                                    id="company"
+                                    value={selectedCompany}
+                                    onChange={(e) => setSelectedCompany(e.target.value)}
+                                    required
+                                >
+                                    <option value="">-- Select Company --</option>
+                                    {companies.map(company => (
+                                        <option key={company.id} value={company.id}>
+                                            {company.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
+
+                        {(documentType === 'progress_report' || documentType === 'evaluation_summary') && (
+                            <div className="info-box" style={{ marginBottom: '20px' }}>
+                                <p>This report will be generated automatically with current system data.</p>
+                            </div>
+                        )}
+
+                        <div className="form-actions">
+                            <button type="submit" disabled={loading} className="btn-primary">
+                                {loading ? 'Generating...' : '📥 Generate & Download PDF'}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => navigate('/coordinator/dashboard')}
+                                className="btn-secondary"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div className="info-box" style={{ maxWidth: '800px', margin: '30px auto' }}>
+                    <h3>📋 Document Types</h3>
+                    <ul>
+                        <li><strong>Endorsement Letter:</strong> Official letter endorsing a student for internship at a specific company</li>
+                        <li><strong>Acceptance Letter:</strong> Letter welcoming a company as a partner in the internship program</li>
+                        <li><strong>Progress Report:</strong> Summary report of internship program statistics</li>
+                        <li><strong>Evaluation Summary:</strong> Compiled evaluation data from company supervisors</li>
+                    </ul>
+                </div>
+            </div>
+
+            <style>{`
+                .form-container {
+                    background: white;
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                }
+
+                .form-group {
+                    margin-bottom: 20px;
+                }
+
+                .form-group label {
+                    display: block;
+                    margin-bottom: 8px;
+                    font-weight: 600;
+                    color: #333;
+                }
+
+                .form-group select {
+                    width: 100%;
+                    padding: 12px;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    font-size: 14px;
+                }
+
+                .form-group select:focus {
+                    outline: none;
+                    border-color: #4CAF50;
+                    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+                }
+
+                .form-actions {
+                    display: flex;
+                    gap: 15px;
+                    margin-top: 30px;
+                }
+
+                .btn-primary,
+                .btn-secondary {
+                    flex: 1;
+                    padding: 12px;
+                    border: none;
+                    border-radius: 5px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                }
+
+                .btn-primary {
+                    background: #4CAF50;
+                    color: white;
+                }
+
+                .btn-primary:hover:not(:disabled) {
+                    background: #45a049;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+                }
+
+                .btn-primary:disabled {
+                    opacity: 0.6;
+                    cursor: not-allowed;
+                }
+
+                .btn-secondary {
+                    background: #f0f0f0;
+                    color: #333;
+                    border: 1px solid #ddd;
+                }
+
+                .btn-secondary:hover {
+                    background: #e0e0e0;
+                }
+
+                .success-banner {
+                    background-color: #d4edda;
+                    color: #155724;
+                    padding: 15px 20px;
+                    border-radius: 5px;
+                    margin-bottom: 20px;
+                    border: 1px solid #c3e6cb;
+                }
+
+                .error-banner {
+                    background-color: #f8d7da;
+                    color: #721c24;
+                    padding: 15px 20px;
+                    border-radius: 5px;
+                    margin-bottom: 20px;
+                    border: 1px solid #f5c6cb;
+                }
+            `}</style>
+        </div >
+    );
+}
+
+export default CoordinatorDocuments;

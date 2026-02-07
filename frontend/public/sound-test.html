@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notification Sound Test</title>
+</head>
+<body>
+    <h1>Notification Sound Test</h1>
+    <button onclick="testSound()" style="padding: 20px; font-size: 18px; cursor: pointer;">
+        🔊 Click to Test Sound
+    </button>
+    <div id="log" style="margin-top: 20px; font-family: monospace;"></div>
+
+    <script>
+        function log(message) {
+            document.getElementById('log').innerHTML += message + '<br>';
+            console.log(message);
+        }
+
+        function testSound() {
+            log('🎵 Testing notification sound...');
+            const audio = new Audio('/notification.wav');
+            
+            audio.play()
+                .then(() => {
+                    log('✅ Sound played successfully!');
+                })
+                .catch(err => {
+                    log('❌ Error playing sound: ' + err.message);
+                    log('This might be a browser autoplay policy issue.');
+                });
+        }
+
+        // Auto-test on page load (might fail due to autoplay policy)
+        window.addEventListener('load', () => {
+            log('Page loaded. Click the button to test sound.');
+        });
+    </script>
+</body>
+</html>

@@ -22,8 +22,12 @@ All systems are connected, tested, and ready for production use.
 | Frontend UI | ✅ 100% Connected |
 | Database | ✅ Fully Synchronized |
 | Admin Features | ✅ All Working |
+| Coordinator Features | ✅ All Working |
+| Supervisor Features | ✅ All Working |
 | Student Features | ✅ All Working |
-| Authentication | ✅ Secure Token System |
+| QR Code System | ✅ Fully Functional |
+| AI Integration | ✅ Google Gemini 2.0 |
+| 2FA Authentication | ✅ Email-Based |
 | Documentation | ✅ Complete |
 
 ---
@@ -63,20 +67,50 @@ npm start
 
 ## 👥 User Roles
 
-### Admin User
+### 1. Admin User
+- ✅ Manage all users (students, coordinators, supervisors)
 - ✅ Manage companies (add, edit, delete)
 - ✅ Manage internships (add, edit, delete)
 - ✅ View all student applications
-- ✅ Update application status (Approve/Reject)
-- ✅ View system statistics
-- ✅ Access admin dashboard
+- ✅ System configuration and settings
+- ✅ Backup and restore database
+- ✅ View comprehensive analytics
+- ✅ Email template management
+- ✅ Two-factor authentication (mandatory)
 
-### Student User
-- ✅ Browse available internships
-- ✅ Apply for internships
+### 2. Coordinator User
+- ✅ Monitor students by college/course
+- ✅ Approve/reject pre-training requirements
+- ✅ Review internship applications
+- ✅ Bulk verification of student documents
+- ✅ Grade management and evaluation
+- ✅ Track student progress in real-time
+- ✅ Export student data (Excel/PDF)
+- ✅ Manage narrative reports (Midterm/Final)
+- ✅ View college-specific analytics
+
+### 3. Supervisor User
+- ✅ Scan student QR codes for quick access
+- ✅ Evaluate student performance
+- ✅ Submit performance ratings
+- ✅ Track student attendance (DTR)
+- ✅ Provide feedback and comments
+- ✅ View assigned interns
+- ✅ Monitor daily progress
+- ✅ Access evaluation history
+- ✅ No login required for QR code evaluation
+
+### 4. Student User
+- ✅ Browse AI-powered internship recommendations
+- ✅ Apply for internships with required documents
 - ✅ Track application status
-- ✅ View personal statistics
-- ✅ Access student dashboard
+- ✅ Generate personal QR code for supervisor evaluation
+- ✅ Submit narrative reports (Midterm/Final)
+- ✅ Upload certifications and documents
+- ✅ Use AI Resume Builder
+- ✅ Access career guidance
+- ✅ Maintain daily journal
+- ✅ View attendance and grades
 
 ---
 
@@ -87,18 +121,49 @@ npm start
 |---------|-------------|
 | 🏢 Company Management | Add, edit, delete partner companies |
 | 💼 Internship Management | Create and manage internship positions |
-| 📋 Application Review | View and manage student applications |
-| 📊 Dashboard Analytics | View system statistics and metrics |
-| ✅ Approval Workflow | Accept or reject student applications |
+| 👥 User Management | Manage students, coordinators, supervisors |
+| 📋 Application Review | View and manage all student applications |
+| 📊 System Analytics | Comprehensive system statistics and reports |
+| ⚙️ System Configuration | Email templates, settings, backups |
+| 🔒 Security Management | 2FA enforcement, audit logs |
+
+### For Coordinators
+| Feature | Description |
+|---------|-------------|
+| 📚 Student Monitoring | Track students by college/course in real-time |
+| ✅ Requirement Approval | Approve/reject pre-training documents |
+| 📝 Application Review | Review and manage internship applications |
+| 🎓 Grade Management | Assign and manage student grades |
+| 📊 Progress Tracking | Monitor student internship progress |
+| 📄 Report Management | Review narrative reports (Midterm/Final) |
+| 📤 Data Export | Export student data to Excel/PDF |
+| 🔍 Bulk Verification | Verify multiple students at once |
+
+### For Supervisors
+| Feature | Description |
+|---------|-------------|
+| 📱 QR Code Scanning | Scan student QR codes for instant access |
+| ⭐ Performance Evaluation | Rate students on multiple criteria |
+| 📊 Progress Monitoring | Track daily student progress |
+| 📝 Attendance Tracking | Mark and manage student attendance (DTR) |
+| 💬 Feedback System | Provide detailed comments and feedback |
+| 👨‍🎓 Intern Management | View and manage assigned interns |
+| 📈 Evaluation History | Access past evaluations and ratings |
+| 🚫 No Login Required | Evaluate via QR code without authentication |
 
 ### For Students
 | Feature | Description |
 |---------|-------------|
+| 🤖 AI Recommendations | Get AI-powered internship suggestions |
 | 🔍 Search Internships | Browse available internship positions |
-| 📝 Easy Application | One-click application submission |
-| 📲 Application Tracking | Monitor application status |
-| 📊 Personal Dashboard | View your statistics |
-| ⏰ Real-time Updates | See status changes immediately |
+| 📝 Easy Application | Apply with resume, cover letter, documents |
+| 📲 Application Tracking | Monitor application status in real-time |
+| 📱 QR Code Generation | Generate personal QR code for evaluations |
+| 📄 Document Submission | Upload narrative reports, certifications |
+| 🎨 AI Resume Builder | Create professional resume with AI assistance |
+| 💼 Career Guidance | Get AI-powered career recommendations |
+| 📔 Daily Journal | Maintain internship journal |
+| 📊 Personal Dashboard | View grades, attendance, statistics |
 
 ---
 
@@ -288,19 +353,50 @@ pip install -r requirements.txt
 ## 🎓 Usage Examples
 
 ### Admin Flow
-1. Login as admin
+1. Login as admin with 2FA
 2. Navigate to Admin Dashboard
 3. Create company: "Tech Corp"
 4. Create internship: "Python Developer" under Tech Corp
-5. View student applications
-6. Approve/Reject applications
+5. Manage users (students, coordinators, supervisors)
+6. View system analytics
+7. Configure email templates
+8. Backup database
+
+### Coordinator Flow
+1. Login as coordinator
+2. View students by college (e.g., CCS)
+3. Review pre-training requirements
+4. Bulk approve verified students
+5. Monitor student internship progress
+6. Review and grade narrative reports
+7. Export student data to Excel
+8. Track application statuses
+
+### Supervisor Flow
+1. Receive student's QR code (via email or in-person)
+2. Scan QR code with mobile phone
+3. View student profile and details
+4. Submit performance evaluation:
+   - Rate attendance, quality of work, initiative, teamwork
+   - Provide detailed feedback
+5. Track student daily progress
+6. Mark attendance (DTR)
+7. View evaluation history
 
 ### Student Flow
 1. Register new account
-2. Login
-3. Browse internships
-4. Click "Apply"
-5. Check application status
+2. Complete profile (required before applying)
+3. Browse AI-recommended internships
+4. Apply for internship with documents:
+   - Resume (required)
+   - Cover Letter (optional)
+   - Parents Consent (required)
+   - Internship Contract (required)
+   - Health Record (required)
+5. Generate QR code for supervisor
+6. Submit narrative reports (Midterm/Final)
+7. Check grades and attendance
+8. Maintain daily journal
 
 ---
 
